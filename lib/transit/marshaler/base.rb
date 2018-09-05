@@ -64,6 +64,10 @@ module Transit
       end
 
       def find_handler(obj)
+        # shortcut for performance
+        handler = @handlers[obj.class]
+        return handler if handler
+
         obj.class.ancestors.each do |a|
           if handler = @handlers[a]
             return handler
